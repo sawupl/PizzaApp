@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "393864898736",
+    "project_id": "xakaton2",
+    "storage_bucket": "xakaton2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:393864898736:android:6b4b397b763d4c5cf83375",
+        "android_client_info": {
+          "package_name": "com.example.pizzaapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD35UryXivUmkNw80xml35Upuj5u7Jdw5w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
