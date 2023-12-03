@@ -17,29 +17,45 @@ class MainViewModel(private val db: FirebaseFirestore): ViewModel() {
     private fun getListOfPizza(){
         val pizzaRef = db.collection("pizzas")
 
+        val pizzaList = mutableListOf<Pizza>()
+
         pizzaRef.get()
             .addOnSuccessListener { document ->
                 if (document != null) {
-                    val pizzaList = mutableListOf<Pizza>()
-                    val pizzaRefList = document.documents.forEach {
+                    document.documents.forEach {
+
+
+                        /*
+                          ЯРИК, Я ПЕРЕДЕЛАЛ, ДОЛЖНО РАБОТАТЬ
+                         */
 
                         val pizzaName = it.data?.get("name").toString()
+                        /*
+                          ЯРИК, Я ПЕРЕДЕЛАЛ, ДОЛЖНО РАБОТАТЬ
+                         */
                         val pizzaPicture = it.data?.get("picture").toString()
+                        /*
+                          ЯРИК, Я ПЕРЕДЕЛАЛ, ДОЛЖНО РАБОТАТЬ
+                         */
                         var pizzaIngredientString = ""
-                        val pizzaIngredients = it.reference.collection("ingredient").get().addOnSuccessListener { ingr ->
+                        it.reference.collection("ingredient").get().addOnSuccessListener { ingr ->
                             ingr.documents.forEach {ingredient ->
                                 pizzaIngredientString = pizzaIngredientString + ingredient.data?.get("ingredient") + ", "
-
                             }
                             pizzaIngredientString = pizzaIngredientString.substring(0, pizzaIngredientString.length - 2)
-                            println(pizzaIngredientString)
-                            pizzaList.add(Pizza(pizzaName,pizzaPicture,pizzaIngredientString))
                         }
-
-                        Log.d(TAG, "data: $pizzaName, $pizzaPicture, $pizzaIngredientString")
+                            /*
+                          ЯРИК, Я ПЕРЕДЕЛАЛ, ДОЛЖНО РАБОТАТЬ
+                         */
+                            .addOnCompleteListener{
+                                pizzaList.add(Pizza(pizzaName,pizzaPicture,pizzaIngredientString))
+                                Log.d(TAG, "data: $pizzaName, $pizzaPicture, $pizzaIngredientString")
+                                pizzaLiveData.value = pizzaList
+                            }
+                        /*
+                          ЯРИК, Я ПЕРЕДЕЛАЛ, ДОЛЖНО РАБОТАТЬ
+                         */
                     }
-
-                    pizzaLiveData.value = pizzaList
 
                     Log.d(TAG, "DocumentSnapshot data: ${document.documents.toList()}")
                 } else {
