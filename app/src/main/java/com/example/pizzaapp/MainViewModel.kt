@@ -4,13 +4,39 @@ import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import java.util.Date
 
 class MainViewModel(private val db: FirebaseFirestore): ViewModel() {
 
     val pizzaLiveData = MutableLiveData<List<Pizza>>()
     init {
-        getListOfPizza()
+//        getListOfPizza()
+        getListOfPizzas()
+    }
+
+    private fun getListOfPizzas() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val pizzaList = mutableListOf<Pizza>()
+            val pizzaRef = db.collection("pizzas").get().await()
+            pizzaRef.documents.forEach { pizzaItem ->
+                val name = pizzaItem.data?.get("name").toString()
+                val picture = pizzaItem.data?.get("picture").toString()
+                val ingredientRef = pizzaItem.reference.collection("ingredient").get().await()
+                var ingregientInString = ""
+                ingredientRef.documents.forEach { ingredientItem ->
+                    val ingredient = ingredientItem.data?.get("ingredient").toString()
+                    ingregientInString += "$ingredient, "
+                }
+                ingregientInString = ingregientInString.substring(0, ingregientInString.length - 2)
+                pizzaList.add(Pizza(name, picture, ingregientInString))
+            }
+            pizzaLiveData.postValue(pizzaList)
+        }
     }
 
 
