@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pizzaapp.databinding.PizzaItemBinding
+import com.squareup.picasso.Picasso
 
 
 class PizzaAdapter(private val pizzaList: List<Pizza>): RecyclerView.Adapter<PizzaAdapter.ViewHolder>() {
@@ -16,9 +17,9 @@ class PizzaAdapter(private val pizzaList: List<Pizza>): RecyclerView.Adapter<Piz
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.apply {
-            recipeName.text = pizzaList[position].name
-            recipeIngredients.text = pizzaList[position].ingredients
-            //Picasso.get().load(pizzaList[position].imageUrl).into(recipeIcon)
+            pizzaName.text = pizzaList[position].name
+            pizzaIngredients.text = pizzaList[position].ingredients
+            Picasso.get().load(pizzaList[position].imageUrl).into(pizzaIcon)
         }
     }
     override fun getItemCount(): Int {

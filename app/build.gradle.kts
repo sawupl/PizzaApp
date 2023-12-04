@@ -50,4 +50,6 @@ dependencies {
     implementation("com.google.firebase:firebase-auth:22.3.0")
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.5")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.5")
+    //picasso
+    implementation ("com.squareup.picasso:picasso:2.8")
 }
