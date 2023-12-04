@@ -50,7 +50,7 @@ class LocationFragment : Fragment() {
         binding.addAddress.setOnClickListener {
             var canBeAdded = true
 
-            val city = "Самара"
+
 
             val street = binding.streetText.text.toString()
             var correctStreet = false
@@ -80,7 +80,7 @@ class LocationFragment : Fragment() {
             }
 
             if (canBeAdded){
-                val addressString = "г.$city ул.$street д.$house кв.$apartment"
+                val addressString = "$street $house $apartment"
                 db.collection("users")
                     .document(auth.currentUser?.uid.toString())
                     .update("address",addressString)
