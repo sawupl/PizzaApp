@@ -30,7 +30,7 @@ class MainFragment : Fragment() {
         binding  = FragmentMainBinding.inflate(inflater, container, false)
         viewModel.pizzaLiveData.observe(viewLifecycleOwner){
 
-            val adapter = PizzaAdapter(it)
+            val adapter = PizzaAdapter(it, viewModel, requireContext())
             binding.recipeView.adapter = adapter
             binding.recipeView.layoutManager = LinearLayoutManager(context)
 

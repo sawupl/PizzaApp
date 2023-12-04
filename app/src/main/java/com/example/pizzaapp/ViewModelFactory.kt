@@ -2,6 +2,7 @@ package com.example.pizzaapp
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.lang.Exception
@@ -12,6 +13,7 @@ class ViewModelFactory() :
 
     private val viewModelHashMap = HashMap<String, ViewModel>()
     private val db = Firebase.firestore
+    private val auth = Firebase.auth
 
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -20,7 +22,7 @@ class ViewModelFactory() :
             return if (viewModelHashMap.containsKey(key)) {
                 getViewModel(key) as T
             } else {
-                val viewModel: ViewModel = MainViewModel(db)
+                val viewModel: ViewModel = MainViewModel(db, auth)
                 addViewModel(key, viewModel)
                 getViewModel(key) as T
             }
