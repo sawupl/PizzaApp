@@ -81,12 +81,9 @@ class LocationFragment : Fragment() {
 
             if (canBeAdded){
                 val addressString = "г.$city ул.$street д.$house кв.$apartment"
-                val address = hashMapOf(
-                    "address" to addressString
-                )
                 db.collection("users")
                     .document(auth.currentUser?.uid.toString())
-                    .set(address)
+                    .update("address",addressString)
             }
 
         }
