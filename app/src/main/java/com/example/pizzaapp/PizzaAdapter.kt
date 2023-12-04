@@ -18,29 +18,55 @@ class PizzaAdapter(private val pizzaList: List<Pizza>, private val viewModel: Ma
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val id = pizzaList[position].id.toString()
+        val name = pizzaList[position].name
+        val imageUrl = pizzaList[position].imageUrl
+        val ingredients = pizzaList[position].ingredients
         holder.binding.apply {
-            pizzaName.text = pizzaList[position].name
-            pizzaIngredients.text = pizzaList[position].ingredients
-            Picasso.get().load(pizzaList[position].imageUrl).into(pizzaIcon)
-            println(position)
+            pizzaName.text = name
+            pizzaIngredients.text = ingredients
+            Picasso.get().load(imageUrl).into(pizzaIcon)
             if (pizzaList[position].added) {
-                println("$position position")
-                basket.setColorFilter(ContextCompat.getColor(context, R.color.blue));
+                println("$position added position")
+                basket.setColorFilter(ContextCompat.getColor(context, R.color.blue))
             }
             else {
-                basket.setColorFilter(ContextCompat.getColor(context, R.color.black));
+                basket.setColorFilter(ContextCompat.getColor(context, R.color.black))
+            }
+            if (pizzaList[position].like) {
+                println("$position like position")
+                like.setColorFilter(ContextCompat.getColor(context, R.color.red))
+            }
+            else {
+                println("here $position")
+                like.setColorFilter(ContextCompat.getColor(context, R.color.black))
             }
         }
         holder.binding.basket.setOnClickListener {
+            println("click added")
             if (pizzaList[position].added) {
-                viewModel.deletePizza(pizzaList[position].id.toString())
-                holder.binding.basket.setColorFilter(ContextCompat.getColor(context, R.color.black));
+                holder.binding.basket.setColorFilter(ContextCompat.getColor(context, R.color.black))
                 pizzaList[position].added = false
+                viewModel.deletePizza(id)
             }
             else {
-                viewModel.addPizza(pizzaList[position].id.toString())
-                holder.binding.basket.setColorFilter(ContextCompat.getColor(context, R.color.blue));
+                holder.binding.basket.setColorFilter(ContextCompat.getColor(context, R.color.blue))
                 pizzaList[position].added = true
+                viewModel.addPizza(id)
+            }
+        }
+
+        holder.binding.like.setOnClickListener{
+            println("click like")
+            if (pizzaList[position].like) {
+                holder.binding.like.setColorFilter(ContextCompat.getColor(context, R.color.black))
+                pizzaList[position].like = false
+                viewModel.likePizza(id)
+            }
+            else {
+                holder.binding.like.setColorFilter(ContextCompat.getColor(context, R.color.red))
+                pizzaList[position].like = true
+                viewModel.likePizza(id)
             }
         }
     }

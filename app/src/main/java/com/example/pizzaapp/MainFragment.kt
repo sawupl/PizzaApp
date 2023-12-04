@@ -1,19 +1,17 @@
 package com.example.pizzaapp
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pizzaapp.databinding.FragmentMainBinding
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
-    private val db = Firebase.firestore
     private lateinit var viewModel: MainViewModel
 
 

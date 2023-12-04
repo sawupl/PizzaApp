@@ -1,7 +1,5 @@
 package com.example.pizzaapp
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,8 +10,6 @@ import com.google.firebase.firestore.SetOptions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
-import kotlinx.coroutines.withContext
-import java.util.Date
 
 class MainViewModel(private val db: FirebaseFirestore, private val auth: FirebaseAuth): ViewModel() {
 
@@ -31,7 +27,11 @@ class MainViewModel(private val db: FirebaseFirestore, private val auth: Firebas
             userPizzaRef.documents.forEach {
                 userPizzaList.add(it.id)
             }
-            userPizzaList.forEach{ println(it) }
+            val userPizzaLikeList = mutableListOf<String>()
+            val userPizzaLikeRef = db.collection("users").document(id).collection("like-pizza").get().await()
+            userPizzaLikeRef.documents.forEach {
+                userPizzaLikeList.add(it.id)
+            }
             val pizzaList = mutableListOf<Pizza>()
             val pizzaRef = db.collection("pizzas").get().await()
             pizzaRef.documents.forEach { pizzaItem ->
@@ -45,17 +45,21 @@ class MainViewModel(private val db: FirebaseFirestore, private val auth: Firebas
                     ingregientInString += "$ingredient, "
                 }
                 ingregientInString = ingregientInString.substring(0, ingregientInString.length - 2)
-                println("-------------------")
+                var added = false;
+                var like = false;
                 if (id in userPizzaList) {
-                    println(id)
-                    pizzaList.add(Pizza(id, name, picture, ingregientInString, true))
+                    println("$id added")
+                    added = true
                 }
-                else {
-                    pizzaList.add(Pizza(id, name, picture, ingregientInString))
+                if (id in userPizzaLikeList) {
+                    println("$id like")
+                    like = true
                 }
+                pizzaList.add(Pizza(id = id, name = name, imageUrl = picture, ingredients = ingregientInString, added = added, like = like))
             }
-            println("------------------")
-            println(pizzaList.forEach { println(it.id + " " + it.name + " " + it.imageUrl + " " + it.ingredients + " " + it.added) })
+            pizzaList.forEach {
+                println(it.id + " " + it.name + " " + it.imageUrl+ " " + it.ingredients+ " added" +it.added + " like" + it.like)
+            }
             pizzaLiveData.postValue(pizzaList)
         }
     }
@@ -94,6 +98,22 @@ class MainViewModel(private val db: FirebaseFirestore, private val auth: Firebas
     fun deletePizza(pizzaId: String) {
         viewModelScope.launch(Dispatchers.IO) {
             db.collection("users").document(id).collection("pizzas").document(pizzaId).delete().await()
+        }
+    }
+
+    fun likePizza(pizzaId: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val pizza = hashMapOf(
+                "like" to true
+            )
+            val likePizzaRef = db.collection("users").document(id).collection("like-pizza").document(pizzaId)
+            val likePizzaRefValue = likePizzaRef.get().await()
+            if (likePizzaRefValue.exists()) {
+                likePizzaRef.delete()
+            }
+            else {
+                likePizzaRef.set(pizza)
+            }
         }
     }
 
