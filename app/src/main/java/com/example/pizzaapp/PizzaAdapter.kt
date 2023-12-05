@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pizzaapp.databinding.PizzaItemBinding
@@ -73,8 +74,8 @@ class PizzaAdapter(private val pizzaList: List<Pizza>, private val viewModel: Ma
         }
         holder.itemView.setOnClickListener {
             val bundle = Bundle()
-            bundle.putString("receiverId", pizzaList[position].id)
-            //findNavController().navigate(R.id.action_registrationFragment_to_mainFragment)
+            bundle.putString("pizzaId", pizzaList[position].id)
+            findNavController(it).navigate(R.id.action_mainFragment_to_pizzaFragment, bundle)
         }
     }
 
