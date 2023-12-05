@@ -8,4 +8,8 @@
     <color name="dgrey">#2D3037</color>
     <color name="whitepros">#80F2E7D5</color>
     <color name="lgrey">#747D8E</color>
+    <color name="persiclight">#FCE2BD</color>
+    <color name="persic">#FFC064</color>
+    <color name="oran">#FF4900</color>
+    <color name="oranp">#70FF4C00</color>
 </resources>
