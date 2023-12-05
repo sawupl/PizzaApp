@@ -39,6 +39,9 @@
         <action
             android:id="@+id/action_mainFragment_to_basketFragment"
             app:destination="@id/basketFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_pizzaFragment"
+            app:destination="@id/pizzaFragment" />
     </fragment>
     <fragment
         android:id="@+id/locationFragment"
@@ -50,4 +53,8 @@
         android:name="com.example.pizzaapp.BasketFragment"
         android:label="fragment_basket"
         tools:layout="@layout/fragment_basket" />
+    <fragment
+        android:id="@+id/pizzaFragment"
+        android:name="com.example.pizzaapp.PizzaFragment"
+        android:label="PizzaFragment" />
 </navigation>

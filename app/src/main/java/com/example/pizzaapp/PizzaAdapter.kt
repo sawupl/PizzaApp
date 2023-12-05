@@ -1,9 +1,11 @@
 package com.example.pizzaapp
 
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pizzaapp.databinding.PizzaItemBinding
 import com.squareup.picasso.Picasso
@@ -69,7 +71,15 @@ class PizzaAdapter(private val pizzaList: List<Pizza>, private val viewModel: Ma
                 viewModel.likePizza(id)
             }
         }
+        holder.itemView.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("receiverId", pizzaList[position].id)
+            //findNavController().navigate(R.id.action_registrationFragment_to_mainFragment)
+        }
     }
+
+
+
     override fun getItemCount(): Int {
         return pizzaList.size
     }
