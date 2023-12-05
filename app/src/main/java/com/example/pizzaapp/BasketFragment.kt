@@ -11,12 +11,12 @@ import com.example.pizzaapp.databinding.FragmentBasketBinding
 
 class BasketFragment : Fragment() {
     private lateinit var binding: FragmentBasketBinding
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: BasketViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this, ViewModelFactory())[MainViewModel::class.java]
+        viewModel = ViewModelProvider(this, ViewModelFactory())[BasketViewModel::class.java]
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

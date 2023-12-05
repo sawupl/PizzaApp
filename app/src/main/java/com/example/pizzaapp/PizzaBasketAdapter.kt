@@ -13,7 +13,7 @@ import com.example.pizzaapp.databinding.BasketPizzaItemBinding
 import com.squareup.picasso.Picasso
 
 
-class PizzaBasketAdapter(private val pizzaList: ArrayList<Pizza>, private val viewModel: MainViewModel, private val context: Context): RecyclerView.Adapter<PizzaBasketAdapter.ViewHolder>() {
+class PizzaBasketAdapter(private val pizzaList: ArrayList<Pizza>, private val viewModel: BasketViewModel, private val context: Context): RecyclerView.Adapter<PizzaBasketAdapter.ViewHolder>() {
     inner class ViewHolder(val binding: BasketPizzaItemBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

@@ -37,6 +37,7 @@
         android:id="@+id/toBasket"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="В корзину"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/recipeView"
         >
