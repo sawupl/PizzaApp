@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pizzaapp.databinding.FragmentMainBinding
 
@@ -25,16 +26,16 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding  = FragmentMainBinding.inflate(inflater, container, false)
-        viewModel.pizzaLiveData.observe(viewLifecycleOwner){
 
+        viewModel.pizzaLiveData.observe(viewLifecycleOwner){
             val adapter = PizzaAdapter(it, viewModel, requireContext())
             binding.recipeView.adapter = adapter
             binding.recipeView.layoutManager = LinearLayoutManager(context)
-
         }
 
-
-
+        binding.toBasket.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_basketFragment)
+        }
 
         return binding.root
     }

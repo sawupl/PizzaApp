@@ -6,5 +6,6 @@ data class Pizza(
     val imageUrl: String?,
     val ingredients: String?,
     var added: Boolean = false,
-    var like: Boolean = false
+    var like: Boolean = false,
+    var count: Long? = null
 )
