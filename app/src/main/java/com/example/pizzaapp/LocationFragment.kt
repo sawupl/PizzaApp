@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.pizzaapp.databinding.FragmentLocationBinding
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -19,9 +20,12 @@ class LocationFragment : Fragment() {
     private val db = Firebase.firestore
     private val auth = Firebase.auth
     private var streets = mutableListOf<String>()
+    private lateinit var viewModel: LocationViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        viewModel = ViewModelProvider(this, ViewModelFactory())[LocationViewModel::class.java]
 
         val refDb = db.collection("streets")
 
@@ -47,7 +51,7 @@ class LocationFragment : Fragment() {
         binding.streetText.setAdapter(adapter)
 
 
-        binding.addAddress.setOnClickListener {
+        binding.orderPizza.setOnClickListener {
             var canBeAdded = true
 
 
@@ -84,6 +88,9 @@ class LocationFragment : Fragment() {
                 db.collection("users")
                     .document(auth.currentUser?.uid.toString())
                     .update("address",addressString)
+
+                viewModel.saveToHistory()
+                viewModel.clearUserCurrentOrder()
             }
 
         }

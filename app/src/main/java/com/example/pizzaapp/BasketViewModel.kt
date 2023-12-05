@@ -73,4 +73,26 @@ class BasketViewModel(private val db: FirebaseFirestore, private val auth: Fireb
         db.collection("users").document(id).collection("pizzas").document(pizzaId).set(pizza)
     }
 
+    fun getPreviousOrder() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val pizzaList = ArrayList<Pizza>()
+            val userPizzaRef = db.collection("users").document(id).collection("history").get().await()
+            userPizzaRef.documents.forEach { pizza ->
+                val pizzaRef = db.collection("pizzas").document(pizza.id).get().await()
+                val count = pizza.get("count") as Long
+                val id = pizzaRef.id
+                val name = pizzaRef.data?.get("name").toString()
+                val picture = pizzaRef.data?.get("picture").toString()
+                val ingredientRef = pizzaRef.reference.collection("ingredient").get().await()
+                var ingregientInString = ""
+                ingredientRef.documents.forEach { ingredientItem ->
+                    val ingredient = ingredientItem.data?.get("ingredient").toString()
+                    ingregientInString += "$ingredient, "
+                }
+                ingregientInString = ingregientInString.substring(0, ingregientInString.length - 2)
+                pizzaList.add(Pizza(id = id, name = name, imageUrl = picture, ingredients = ingregientInString, count = count))
+            }
+            usersPizzaLiveData.postValue(pizzaList)
+        }
+    }
 }

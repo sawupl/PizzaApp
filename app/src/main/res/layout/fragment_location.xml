@@ -6,10 +6,10 @@
     tools:context=".MainFragment">
 
     <Button
-        android:id="@+id/addAddress"
+        android:id="@+id/orderPizza"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Добавить"
+        android:text="Заказать"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

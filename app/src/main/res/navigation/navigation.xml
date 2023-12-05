@@ -52,7 +52,11 @@
         android:id="@+id/basketFragment"
         android:name="com.example.pizzaapp.BasketFragment"
         android:label="fragment_basket"
-        tools:layout="@layout/fragment_basket" />
+        tools:layout="@layout/fragment_basket" >
+        <action
+            android:id="@+id/action_basketFragment_to_locationFragment"
+            app:destination="@id/locationFragment" />
+    </fragment>
     <fragment
         android:id="@+id/pizzaFragment"
         android:name="com.example.pizzaapp.PizzaFragment"

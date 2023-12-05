@@ -22,4 +22,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/findPizzaButton" />
 
+    <Button
+        android:id="@+id/order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Заказать"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/orderPrevious"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Заказ предыдущего"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/findPizzaButton" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

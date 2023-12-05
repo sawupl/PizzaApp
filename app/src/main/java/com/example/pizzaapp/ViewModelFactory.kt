@@ -46,6 +46,16 @@ class ViewModelFactory() :
                 getViewModel(key) as T
             }
         }
+        else if (modelClass.isAssignableFrom(LocationViewModel::class.java)) {
+            val key = LocationViewModel::class.java.name
+            return if (viewModelHashMap.containsKey(key)) {
+                getViewModel(key) as T
+            } else {
+                val viewModel: ViewModel = LocationViewModel(db, auth)
+                addViewModel(key, viewModel)
+                getViewModel(key) as T
+            }
+        }
         else{
             throw ClassNotFoundException("нет такой ViewModel")
         }

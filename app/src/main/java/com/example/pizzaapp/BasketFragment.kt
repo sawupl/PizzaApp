@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pizzaapp.databinding.FragmentBasketBinding
 
@@ -30,6 +31,14 @@ class BasketFragment : Fragment() {
             val adapter = PizzaBasketAdapter(it, viewModel, requireContext())
             binding.recipeView.adapter = adapter
             binding.recipeView.layoutManager = LinearLayoutManager(context)
+        }
+
+        binding.order.setOnClickListener {
+            findNavController().navigate(R.id.action_basketFragment_to_locationFragment)
+        }
+
+        binding.orderPrevious.setOnClickListener {
+            viewModel.getPreviousOrder()
         }
 
         return binding.root
