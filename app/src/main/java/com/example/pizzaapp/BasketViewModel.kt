@@ -40,24 +40,26 @@ class BasketViewModel(private val db: FirebaseFirestore, private val auth: Fireb
         }
     }
 
-    fun addPizza(pizzaId: String) {
+    fun addPizza(pizzaId: String, price:Long) {
         viewModelScope.launch(Dispatchers.IO) {
             val inc = FieldValue.increment(1)
             val pizza = hashMapOf(
-                "count" to inc
+                "count" to inc,
+                "price" to price
             )
             db.collection("users").document(id).collection("pizzas").document(pizzaId).set(pizza, SetOptions.merge())
         }
     }
 
-    fun removePizza(pizzaId: String) {
+    fun removePizza(pizzaId: String, price:Long) {
         viewModelScope.launch(Dispatchers.IO) {
             val pizzaItem = db.collection("users").document(id).collection("pizzas").document(pizzaId).get().await()
             val count = pizzaItem.get("count") as Long
             if (count > 1) {
                 val inc = FieldValue.increment(-1)
                 val pizza = hashMapOf(
-                    "count" to inc
+                    "count" to inc,
+                    "price" to price
                 )
                 db.collection("users").document(id).collection("pizzas").document(pizzaId).set(pizza, SetOptions.merge())
             }
@@ -67,9 +69,10 @@ class BasketViewModel(private val db: FirebaseFirestore, private val auth: Fireb
         }
     }
 
-    fun updatePizzaCount(pizzaId: String, count: Long) {
+    fun updatePizzaCount(pizzaId: String, count: Long, price:Long) {
         val pizza = hashMapOf(
-            "count" to count
+            "count" to count,
+            "price" to price
         )
         db.collection("users").document(id).collection("pizzas").document(pizzaId).set(pizza)
     }
@@ -85,6 +88,7 @@ class BasketViewModel(private val db: FirebaseFirestore, private val auth: Fireb
                 val name = pizzaRef.data?.get("name").toString()
                 val picture = pizzaRef.data?.get("picture").toString()
                 val price = pizzaRef.data?.get("price") as Long
+                val fullPrice = count * price
                 val ingredientRef = pizzaRef.reference.collection("ingredient").get().await()
                 var ingregientInString = ""
                 ingredientRef.documents.forEach { ingredientItem ->
@@ -92,7 +96,7 @@ class BasketViewModel(private val db: FirebaseFirestore, private val auth: Fireb
                     ingregientInString += "$ingredient, "
                 }
                 ingregientInString = ingregientInString.substring(0, ingregientInString.length - 2)
-                updatePizzaCount(pizzaId,count)
+                updatePizzaCount(pizzaId, count, fullPrice)
                 pizzaList.add(Pizza(id = pizzaId, name = name, price = price, imageUrl = picture, ingredients = ingregientInString, count = count))
             }
             usersPizzaLiveData.postValue(pizzaList)

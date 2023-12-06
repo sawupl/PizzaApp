@@ -27,30 +27,41 @@ class PizzaBasketAdapter(private val pizzaList: ArrayList<Pizza>, private val vi
         val imageUrl = pizzaList[position].imageUrl
         val ingredients = pizzaList[position].ingredients
         val count = pizzaList[position].count
+        val price = pizzaList[position].count?.times(pizzaList[position].price!!)
         holder.binding.apply {
             pizzaName.text = name
             pizzaIngredients.text = ingredients
+            println(price.toString() + " " + count)
+            sumOfPizza.text = price.toString()
             Picasso.get().load(imageUrl).into(pizzaIcon)
             pizzaCount.setText(count.toString())
         }
+
         holder.binding.plus.setOnClickListener {
             println("click plus")
             pizzaList[position].count = pizzaList[position].count?.plus(1)
-                holder.binding.pizzaCount.setText(pizzaList[position].count.toString())
-                viewModel.addPizza(id)
+            holder.binding.pizzaCount.setText(pizzaList[position].count.toString())
+            println(pizzaList[position].count.toString() +" "+ pizzaList[position].price!! +" "+(pizzaList[position].count?.times(pizzaList[position].price!!)).toString())
+            val pizzaFullPrice = (pizzaList[position].count?.times(pizzaList[position].price!!))
+            holder.binding.sumOfPizza.text = pizzaFullPrice.toString()
+            viewModel.addPizza(id, pizzaFullPrice!!)
+
         }
 
         holder.binding.minus.setOnClickListener{
             println("click minus")
             val currentCount = pizzaList[position].count
+            var pizzaFullPrice:Long =0
             if (currentCount!! > 1) {
                 pizzaList[position].count = pizzaList[position].count?.minus(1)
                 holder.binding.pizzaCount.setText(pizzaList[position].count.toString())
+                pizzaFullPrice = (pizzaList[position].count?.times(pizzaList[position].price!!)!!)
+                holder.binding.sumOfPizza.text = pizzaFullPrice.toString()
             }
             else {
                 removeItem(position)
             }
-            viewModel.removePizza(id)
+            viewModel.removePizza(id, pizzaFullPrice)
         }
 
 
@@ -63,7 +74,8 @@ class PizzaBasketAdapter(private val pizzaList: ArrayList<Pizza>, private val vi
                         val pizzaId = pizzaList[position].id.toString()
                         if (count > 0) {
                             pizzaList[position].count = count
-                            viewModel.updatePizzaCount(pizzaId, count)
+                            var pizzaFullPrice = count * pizzaList[position].price!!
+                            viewModel.updatePizzaCount(pizzaId, count, pizzaFullPrice)
                         }
                         else {
                             Toast.makeText(context, "Вводить 0 нельзя.", Toast.LENGTH_SHORT).show()
