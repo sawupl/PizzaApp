@@ -37,4 +37,13 @@ class LocationViewModel(private val db: FirebaseFirestore, private val auth: Fir
         }
     }
 
+    fun clearHistory() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val history = db.collection("users").document(id).collection("history").get().await()
+            history.documents.forEach {
+                it.reference.delete()
+            }
+        }
+    }
+
 }

@@ -103,7 +103,7 @@ class BasketViewModel(private val db: FirebaseFirestore, private val auth: Fireb
         }
     }
 
-    fun clear(){
+    fun clearBasket(){
         viewModelScope.launch(Dispatchers.IO) {
             db.collection("users").document(id).collection("pizzas").get().await().forEach {
                 it.reference.delete().await()

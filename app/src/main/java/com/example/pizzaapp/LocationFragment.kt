@@ -88,7 +88,7 @@ class LocationFragment : Fragment() {
                 db.collection("users")
                     .document(auth.currentUser?.uid.toString())
                     .update("address",addressString)
-
+                viewModel.clearHistory()
                 viewModel.saveToHistory()
                 viewModel.clearUserCurrentOrder()
             }
