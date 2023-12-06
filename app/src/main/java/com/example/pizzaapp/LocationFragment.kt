@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.pizzaapp.databinding.FragmentLocationBinding
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -89,6 +90,10 @@ class LocationFragment : Fragment() {
                 viewModel.clearHistory()
                 viewModel.saveToHistory()
                 viewModel.clearUserCurrentOrder()
+                val toast = Toast.makeText(requireContext(), "Заказ сделан", Toast.LENGTH_SHORT)
+                toast.show()
+                findNavController().popBackStack()
+                findNavController().popBackStack()
             }
 
         }
