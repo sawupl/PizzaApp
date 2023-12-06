@@ -77,11 +77,12 @@ class MainViewModel(private val db: FirebaseFirestore, private val auth: Firebas
         }
     }
 
-    fun addPizza(pizzaId: String) {
+    fun addPizza(pizzaId: String, price: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             val inc = FieldValue.increment(1)
             val pizza = hashMapOf(
-                "count" to inc
+                "count" to inc,
+                "price" to price
             )
             db.collection("users").document(id).collection("pizzas").document(pizzaId)
                 .set(pizza, SetOptions.merge())

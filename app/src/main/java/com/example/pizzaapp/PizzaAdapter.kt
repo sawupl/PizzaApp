@@ -60,7 +60,7 @@ class PizzaAdapter(private val pizzaList: List<Pizza>, private val viewModel: Ma
             else {
                 holder.binding.basket.setColorFilter(ContextCompat.getColor(context, R.color.blue))
                 pizzaList[position].added = true
-                viewModel.addPizza(id)
+                viewModel.addPizza(id, price!!)
             }
         }
 
