@@ -27,14 +27,6 @@ class LocationFragment : Fragment() {
 
         viewModel = ViewModelProvider(this, ViewModelFactory())[LocationViewModel::class.java]
 
-        val refDb = db.collection("streets")
-
-        refDb.orderBy("name").get().addOnSuccessListener {documents ->
-            for (document in documents) {
-                streets.add(document.data.get("name").toString())
-            }
-        }
-
     }
 
     override fun onCreateView(
@@ -43,6 +35,7 @@ class LocationFragment : Fragment() {
     ): View {
         binding  = FragmentLocationBinding.inflate(inflater, container, false)
 
+        streets = viewModel.getCityStreets()
 
         val adapter = ArrayAdapter(
             requireContext(),
@@ -50,11 +43,15 @@ class LocationFragment : Fragment() {
         )
         binding.streetText.setAdapter(adapter)
 
+        viewModel.addressLiveData.observe(viewLifecycleOwner){
+            binding.streetText.setText(it.get(0))
+            binding.houseText.setText(it.get(1))
+            binding.apartmentText.setText(it.get(2))
+        }
+
 
         binding.orderPizza.setOnClickListener {
             var canBeAdded = true
-
-
 
             val street = binding.streetText.text.toString()
             var correctStreet = false
@@ -84,10 +81,11 @@ class LocationFragment : Fragment() {
             }
 
             if (canBeAdded){
-                val addressString = "$street $house $apartment"
                 db.collection("users")
                     .document(auth.currentUser?.uid.toString())
-                    .update("address",addressString)
+                    .update("street",street,
+                        "house",house,
+                        "apartment",apartment)
                 viewModel.clearHistory()
                 viewModel.saveToHistory()
                 viewModel.clearUserCurrentOrder()

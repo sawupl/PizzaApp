@@ -1,5 +1,6 @@
 package com.example.pizzaapp
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
@@ -11,6 +12,11 @@ import kotlinx.coroutines.tasks.await
 class LocationViewModel(private val db: FirebaseFirestore, private val auth: FirebaseAuth) : ViewModel() {
 
     val id = auth.currentUser?.uid.toString()
+    val addressLiveData = MutableLiveData<List<String>>()
+
+    init {
+        getAddress()
+    }
 
     fun saveToHistory() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -46,4 +52,35 @@ class LocationViewModel(private val db: FirebaseFirestore, private val auth: Fir
         }
     }
 
+    fun getAddress(){
+        println("start")
+        var street: String
+        var house: String
+        var appartment: String
+        val living = mutableListOf<String>()
+        viewModelScope.launch(Dispatchers.IO) {
+            println("mid")
+            val history = db.collection("users").document(id).get().await()
+            street = history.data?.get("street").toString()
+            house = history.data?.get("house").toString()
+            appartment = history.data?.get("apartment").toString()
+            println("$street $house")
+            living.add(street)
+            living.add(house)
+            living.add(appartment)
+            addressLiveData.postValue(living)
+        }
+    }
+    fun getCityStreets(): MutableList<String> {
+        val streetsList = mutableListOf<String>()
+
+        viewModelScope.launch(Dispatchers.IO) {
+            val streets = db.collection("streets").get().await()
+            streets.documents.forEach {
+                streetsList.add(it.data?.get("name").toString())
+            }
+
+        }
+        return streetsList
+    }
 }
