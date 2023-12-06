@@ -26,6 +26,7 @@ class BasketViewModel(private val db: FirebaseFirestore, private val auth: Fireb
                 val id = pizzaRef.id
                 val name = pizzaRef.data?.get("name").toString()
                 val picture = pizzaRef.data?.get("picture").toString()
+                val price = pizzaRef.data?.get("price") as Long
                 val ingredientRef = pizzaRef.reference.collection("ingredient").get().await()
                 var ingregientInString = ""
                 ingredientRef.documents.forEach { ingredientItem ->
@@ -33,7 +34,7 @@ class BasketViewModel(private val db: FirebaseFirestore, private val auth: Fireb
                     ingregientInString += "$ingredient, "
                 }
                 ingregientInString = ingregientInString.substring(0, ingregientInString.length - 2)
-                pizzaList.add(Pizza(id = id, name = name, imageUrl = picture, ingredients = ingregientInString, count = count))
+                pizzaList.add(Pizza(id = id, name = name,price = price ,imageUrl = picture, ingredients = ingregientInString, count = count))
             }
             usersPizzaLiveData.postValue(pizzaList)
         }
@@ -80,9 +81,10 @@ class BasketViewModel(private val db: FirebaseFirestore, private val auth: Fireb
             userPizzaRef.documents.forEach { pizza ->
                 val pizzaRef = db.collection("pizzas").document(pizza.id).get().await()
                 val count = pizza.get("count") as Long
-                val id = pizzaRef.id
+                val pizzaId = pizzaRef.id
                 val name = pizzaRef.data?.get("name").toString()
                 val picture = pizzaRef.data?.get("picture").toString()
+                val price = pizzaRef.data?.get("price") as Long
                 val ingredientRef = pizzaRef.reference.collection("ingredient").get().await()
                 var ingregientInString = ""
                 ingredientRef.documents.forEach { ingredientItem ->
@@ -90,9 +92,18 @@ class BasketViewModel(private val db: FirebaseFirestore, private val auth: Fireb
                     ingregientInString += "$ingredient, "
                 }
                 ingregientInString = ingregientInString.substring(0, ingregientInString.length - 2)
-                pizzaList.add(Pizza(id = id, name = name, imageUrl = picture, ingredients = ingregientInString, count = count))
+                updatePizzaCount(pizzaId,count)
+                pizzaList.add(Pizza(id = pizzaId, name = name, price = price, imageUrl = picture, ingredients = ingregientInString, count = count))
             }
             usersPizzaLiveData.postValue(pizzaList)
+        }
+    }
+
+    fun clear(){
+        viewModelScope.launch(Dispatchers.IO) {
+            db.collection("users").document(id).collection("pizzas").get().await().forEach {
+                it.reference.delete().await()
+            }
         }
     }
 }

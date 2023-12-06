@@ -25,12 +25,14 @@ class PizzaAdapter(private val pizzaList: List<Pizza>, private val viewModel: Ma
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val id = pizzaList[position].id.toString()
         val name = pizzaList[position].name
+        val price = pizzaList[position].price
         val imageUrl = pizzaList[position].imageUrl
         val ingredients = pizzaList[position].ingredients
         holder.binding.apply {
             pizzaName.text = name
             pizzaIngredients.text = ingredients
             pizzaIngredients.text = Html.fromHtml(ingredients)
+            textView2.text = price.toString()
             Picasso.get().load(imageUrl).into(pizzaIcon)
             if (pizzaList[position].added) {
 //                println("$position added position")

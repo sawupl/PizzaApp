@@ -38,6 +38,7 @@ class BasketFragment : Fragment() {
         }
 
         binding.orderPrevious.setOnClickListener {
+            viewModel.clear()
             viewModel.getPreviousOrder()
         }
 

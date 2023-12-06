@@ -40,6 +40,7 @@ class MainViewModel(private val db: FirebaseFirestore, private val auth: Firebas
                 val id = pizzaItem.id
                 val name = pizzaItem.data?.get("name").toString()
                 val picture = pizzaItem.data?.get("picture").toString()
+                val price = pizzaItem.data?.get("price") as Long
                 val ingredientRef = pizzaItem.reference.collection("ingredient").get().await()
                 var ingregientInString = ""
                 ingredientRef.documents.forEach { ingredientItem ->
@@ -61,6 +62,7 @@ class MainViewModel(private val db: FirebaseFirestore, private val auth: Firebas
                     Pizza(
                         id = id,
                         name = name,
+                        price = price,
                         imageUrl = picture,
                         ingredients = ingregientInString,
                         added = added,
@@ -69,7 +71,7 @@ class MainViewModel(private val db: FirebaseFirestore, private val auth: Firebas
                 )
             }
             pizzaList.forEach {
-                println(it.id + " " + it.name + " " + it.imageUrl + " " + it.ingredients + " added" + it.added + " like" + it.like)
+                println(it.id + " " + it.name + " " + it.price + " " +it.imageUrl + " " + it.ingredients + " added" + it.added + " like" + it.like)
             }
             pizzaLiveData.postValue(pizzaList)
         }
@@ -141,6 +143,7 @@ class MainViewModel(private val db: FirebaseFirestore, private val auth: Firebas
                 val id = pizzaItem.id
                 val name = pizzaItem.data?.get("name").toString()
                 val picture = pizzaItem.data?.get("picture").toString()
+                val price = pizzaItem.data?.get("price") as Long
                 val ingredientRef = pizzaItem.reference.collection("ingredient").get().await()
                 var ingregientInString = ""
                 var isLikeIngredient = false
@@ -169,6 +172,7 @@ class MainViewModel(private val db: FirebaseFirestore, private val auth: Firebas
                         Pizza(
                             id = id,
                             name = name,
+                            price = price,
                             imageUrl = picture,
                             ingredients = ingregientInString,
                             added = added,
@@ -178,7 +182,7 @@ class MainViewModel(private val db: FirebaseFirestore, private val auth: Firebas
                 }
             }
             pizzaList.forEach {
-                println(it.id + " " + it.name + " " + it.imageUrl + " " + it.ingredients + " added" + it.added + " like" + it.like)
+                println(it.id + " " + it.name + " " + it.price + " " + it.imageUrl + " " + it.ingredients + " added" + it.added + " like" + it.like)
             }
             pizzaLiveData.postValue(pizzaList)
             }
