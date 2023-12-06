@@ -14,30 +14,10 @@
         android:background="@color/persic"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/toLogin"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/back"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true" />
-
-        <ImageView
-            android:id="@+id/register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/done"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"/>
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Регистрация"
+            android:text="Registration"
             android:textColor="@color/oran"
             android:textSize="26sp"
             android:layout_alignParentTop="true"
@@ -85,7 +65,7 @@
         android:id="@+id/email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="110dp"
         android:ems="10"
         android:hint="Введите email"
         android:inputType="textEmailAddress"
@@ -113,5 +93,28 @@
         app:layout_constraintBottom_toTopOf="@+id/email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/toLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="75dp"
+        android:text="Sign In"
+        android:textColor="@color/persiclight"
+        android:backgroundTint="@color/oran"
+        app:layout_constraintTop_toBottomOf="@id/email"
+        app:layout_constraintStart_toStartOf="@id/email"/>
+
+    <Button
+        android:id="@+id/register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/oran"
+        android:text="Sign Up"
+        android:textColor="@color/persiclight"
+        android:layout_marginTop="75dp"
+        android:src="@drawable/back"
+        app:layout_constraintTop_toBottomOf="@id/email"
+        app:layout_constraintEnd_toEndOf="@id/email"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
