@@ -18,8 +18,10 @@ class LocationViewModel(private val db: FirebaseFirestore, private val auth: Fir
             order.documents.forEach { pizza ->
                 val count = pizza.get("count") as Long
                 val pizzaId = pizza.id
+                val price = pizza.get("price") as Long
                 val historyPizza = hashMapOf(
-                    "count" to count
+                    "count" to count,
+                    "price" to price
                 )
                 db.collection("users").document(id).collection("history").document(pizzaId).set(historyPizza).await()
             }
