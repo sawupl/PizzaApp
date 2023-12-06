@@ -15,20 +15,22 @@ class MainViewModel(private val db: FirebaseFirestore, private val auth: Firebas
 
     val pizzaLiveData = MutableLiveData<List<Pizza>>()
     val id = auth.currentUser?.uid.toString()
+
     init {
-//        getListOfPizza()
         getListOfPizzas()
     }
 
     private fun getListOfPizzas() {
         viewModelScope.launch(Dispatchers.IO) {
             val userPizzaList = mutableListOf<String>()
-            val userPizzaRef = db.collection("users").document(id).collection("pizzas").get().await()
+            val userPizzaRef =
+                db.collection("users").document(id).collection("pizzas").get().await()
             userPizzaRef.documents.forEach {
                 userPizzaList.add(it.id)
             }
             val userPizzaLikeList = mutableListOf<String>()
-            val userPizzaLikeRef = db.collection("users").document(id).collection("like-pizza").get().await()
+            val userPizzaLikeRef =
+                db.collection("users").document(id).collection("like-pizza").get().await()
             userPizzaLikeRef.documents.forEach {
                 userPizzaLikeList.add(it.id)
             }
@@ -55,10 +57,19 @@ class MainViewModel(private val db: FirebaseFirestore, private val auth: Firebas
                     println("$id like")
                     like = true
                 }
-                pizzaList.add(Pizza(id = id, name = name, imageUrl = picture, ingredients = ingregientInString, added = added, like = like))
+                pizzaList.add(
+                    Pizza(
+                        id = id,
+                        name = name,
+                        imageUrl = picture,
+                        ingredients = ingregientInString,
+                        added = added,
+                        like = like
+                    )
+                )
             }
             pizzaList.forEach {
-                println(it.id + " " + it.name + " " + it.imageUrl+ " " + it.ingredients+ " added" +it.added + " like" + it.like)
+                println(it.id + " " + it.name + " " + it.imageUrl + " " + it.ingredients + " added" + it.added + " like" + it.like)
             }
             pizzaLiveData.postValue(pizzaList)
         }
@@ -70,13 +81,15 @@ class MainViewModel(private val db: FirebaseFirestore, private val auth: Firebas
             val pizza = hashMapOf(
                 "count" to inc
             )
-            db.collection("users").document(id).collection("pizzas").document(pizzaId).set(pizza, SetOptions.merge())
+            db.collection("users").document(id).collection("pizzas").document(pizzaId)
+                .set(pizza, SetOptions.merge())
         }
     }
 
     fun deletePizza(pizzaId: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            db.collection("users").document(id).collection("pizzas").document(pizzaId).delete().await()
+            db.collection("users").document(id).collection("pizzas").document(pizzaId).delete()
+                .await()
         }
     }
 
@@ -85,71 +98,89 @@ class MainViewModel(private val db: FirebaseFirestore, private val auth: Firebas
             val pizza = hashMapOf(
                 "like" to true
             )
-            val likePizzaRef = db.collection("users").document(id).collection("like-pizza").document(pizzaId)
+            val likePizzaRef =
+                db.collection("users").document(id).collection("like-pizza").document(pizzaId)
             val likePizzaRefValue = likePizzaRef.get().await()
             if (likePizzaRefValue.exists()) {
                 likePizzaRef.delete()
-            }
-            else {
+            } else {
                 likePizzaRef.set(pizza)
             }
         }
     }
 
-//    suspend fun updatePizza(pizzaId: String): String = withContext(Dispatchers.IO) {
-//        val pizzaRef = db.collection("users").document(id).collection("pizzas").document(pizzaId).get().await()
-//        return@withContext if (pizzaRef.exists()) pizzaRef.get("count").toString() else "0"
-//    }
+    fun getPizzaWithLikeIngredients() {
+        viewModelScope.launch(Dispatchers.IO) {
+            // list of basket
+            val userPizzaList = mutableListOf<String>()
+            val userPizzaRef =
+                db.collection("users").document(id).collection("pizzas").get().await()
+            userPizzaRef.documents.forEach {
+                userPizzaList.add(it.id)
+            }
+            // list of like pizza
+            val userPizzaLikeList = mutableListOf<String>()
+            val userPizzaLikeRef =
+                db.collection("users").document(id).collection("like-pizza").get().await()
+            userPizzaLikeRef.documents.forEach {
+                userPizzaLikeList.add(it.id)
+            }
 
-//    fun deletePizza(pizzaId: String) {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            val inc = FieldValue.increment(-1)
-//            val pizza = hashMapOf(
-//                "count" to inc
-//            )
-//            db.collection("users").document(id).collection("pizzas").document(pizzaId).set(pizza, SetOptions.merge())
-//        }
-//    }
+            // list of like ingredients
+            val userIngredientList = mutableListOf<String>()
+            val userIngredientRef =
+                db.collection("users").document(id).collection("like-ingredient").get().await()
+            userIngredientRef.documents.forEach {
+                userIngredientList.add(it.id)
+            }
 
-
-//    private fun getListOfPizza(){
-//        val pizzaRef = db.collection("pizzas")
-//
-//        val pizzaList = mutableListOf<Pizza>()
-//        var i = 1
-//        pizzaRef.get()
-//            .addOnSuccessListener { document ->
-//                if (document != null) {
-//                    document.documents.forEach {
-//
-//                        val pizzaName = it.data?.get("name").toString()
-//
-//                        val pizzaPicture = it.data?.get("picture").toString()
-//
-//                        var pizzaIngredientString = ""
-//                        it.reference.collection("ingredient").get()
-//                            .addOnSuccessListener { ingr ->
-//                            ingr.documents.forEach {ingredient ->
-//                                pizzaIngredientString = pizzaIngredientString + ingredient.data?.get("ingredient") + ", "
-//                            }
-//                            pizzaIngredientString = pizzaIngredientString.substring(0, pizzaIngredientString.length - 2)
-//                        }
-//                            .addOnCompleteListener{
-//                                pizzaList.add(Pizza(pizzaName,pizzaPicture,pizzaIngredientString))
-//                                Log.d(TAG, "data:$i, $pizzaName, $pizzaPicture, $pizzaIngredientString")
-//                                i++
-//                                pizzaLiveData.value = pizzaList
-//                            }
-//
-//                    }
-//
-//                    Log.d(TAG, "DocumentSnapshot data: ${document.documents.toList()}")
-//                } else {
-//                    Log.d(TAG, "No such document")
-//                }
-//            }
-//            .addOnFailureListener { exception ->
-//                Log.d(TAG, "get failed with ", exception)
-//            }
-//    }
-}
+            // list of pizza
+            val pizzaList = mutableListOf<Pizza>()
+            val pizzaRef = db.collection("pizzas").get().await()
+            pizzaRef.documents.forEach { pizzaItem ->
+                val id = pizzaItem.id
+                val name = pizzaItem.data?.get("name").toString()
+                val picture = pizzaItem.data?.get("picture").toString()
+                val ingredientRef = pizzaItem.reference.collection("ingredient").get().await()
+                var ingregientInString = ""
+                var isLikeIngredient = false
+                ingredientRef.documents.forEach { ingredientItem ->
+                    var ingredient = ingredientItem.data?.get("ingredient").toString()
+                    if (ingredient in userIngredientList) {
+                        println(ingredient)
+                        isLikeIngredient = true
+                        ingredient = "<font color='#EE0000'>$ingredient</font>"
+                    }
+                    ingregientInString += "$ingredient, "
+                }
+                ingregientInString = ingregientInString.substring(0, ingregientInString.length - 2)
+                if (isLikeIngredient) {
+                    var added = false
+                    var like = false
+                    if (id in userPizzaList) {
+                        println("$id added")
+                        added = true
+                    }
+                    if (id in userPizzaLikeList) {
+                        println("$id like")
+                        like = true
+                    }
+                    pizzaList.add(
+                        Pizza(
+                            id = id,
+                            name = name,
+                            imageUrl = picture,
+                            ingredients = ingregientInString,
+                            added = added,
+                            like = like
+                        )
+                    )
+                }
+            }
+            pizzaList.forEach {
+                println(it.id + " " + it.name + " " + it.imageUrl + " " + it.ingredients + " added" + it.added + " like" + it.like)
+            }
+            pizzaLiveData.postValue(pizzaList)
+            }
+        }
+    }

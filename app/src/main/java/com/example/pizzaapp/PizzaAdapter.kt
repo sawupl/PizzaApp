@@ -2,9 +2,11 @@ package com.example.pizzaapp
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.text.HtmlCompat
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -28,20 +30,21 @@ class PizzaAdapter(private val pizzaList: List<Pizza>, private val viewModel: Ma
         holder.binding.apply {
             pizzaName.text = name
             pizzaIngredients.text = ingredients
+            pizzaIngredients.text = Html.fromHtml(ingredients)
             Picasso.get().load(imageUrl).into(pizzaIcon)
             if (pizzaList[position].added) {
-                println("$position added position")
+//                println("$position added position")
                 basket.setColorFilter(ContextCompat.getColor(context, R.color.blue))
             }
             else {
                 basket.setColorFilter(ContextCompat.getColor(context, R.color.black))
             }
             if (pizzaList[position].like) {
-                println("$position like position")
+//                println("$position like position")
                 like.setColorFilter(ContextCompat.getColor(context, R.color.red))
             }
             else {
-                println("here $position")
+//                println("here $position")
                 like.setColorFilter(ContextCompat.getColor(context, R.color.black))
             }
         }

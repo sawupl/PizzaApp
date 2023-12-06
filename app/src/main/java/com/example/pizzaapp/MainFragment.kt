@@ -37,6 +37,10 @@ class MainFragment : Fragment() {
             findNavController().navigate(R.id.action_mainFragment_to_basketFragment)
         }
 
+        binding.findPizzaButton.setOnClickListener {
+            viewModel.getPizzaWithLikeIngredients()
+        }
+
         return binding.root
     }
 }
