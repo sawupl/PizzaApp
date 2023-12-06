@@ -64,10 +64,24 @@ class LocationViewModel(private val db: FirebaseFirestore, private val auth: Fir
             street = history.data?.get("street").toString()
             house = history.data?.get("house").toString()
             appartment = history.data?.get("apartment").toString()
-            println("$street $house")
-            living.add(street)
-            living.add(house)
-            living.add(appartment)
+            if (street.equals("null")){
+                living.add("")
+            }
+            else{
+                living.add(street)
+            }
+            if (house.equals("null")){
+                living.add("")
+            }
+            else{
+                living.add(house)
+            }
+            if (appartment.equals("null")){
+                living.add("")
+            }
+            else{
+                living.add(appartment)
+            }
             addressLiveData.postValue(living)
         }
     }

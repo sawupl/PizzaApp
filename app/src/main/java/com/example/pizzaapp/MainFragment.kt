@@ -33,9 +33,9 @@ class MainFragment : Fragment() {
             binding.recipeView.layoutManager = LinearLayoutManager(context)
         }
 
-        binding.toBasket.setOnClickListener {
+        //binding.toBasket.setOnClickListener {
 //            findNavController().navigate(R.id.action_mainFragment_to_basketFragment)
-        }
+        //}
 
         binding.findPizzaButton.setOnClickListener {
             viewModel.getPizzaWithLikeIngredients()
