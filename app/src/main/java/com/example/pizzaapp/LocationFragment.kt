@@ -45,9 +45,9 @@ class LocationFragment : Fragment() {
         binding.streetText.setAdapter(adapter)
 
         viewModel.addressLiveData.observe(viewLifecycleOwner){
-            binding.streetText.setText(it.get(0))
-            binding.houseText.setText(it.get(1))
-            binding.apartmentText.setText(it.get(2))
+            binding.streetText.setText(it[0])
+            binding.houseText.setText(it[1])
+            binding.apartmentText.setText(it[2])
         }
 
 
