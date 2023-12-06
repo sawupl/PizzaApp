@@ -37,7 +37,7 @@ class LoginFragment : Fragment() {
         super.onStart()
         val currentUser = auth.currentUser
         if (currentUser != null) {
-            findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
+            findNavController().navigate(R.id.action_loginFragment_to_main_navigation)
         }
     }
 
@@ -45,7 +45,7 @@ class LoginFragment : Fragment() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
-                    findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
+                    findNavController().navigate(R.id.action_loginFragment_to_main_navigation)
                 } else {
                     println("ne vxod")
                 }

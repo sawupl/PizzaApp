@@ -39,7 +39,7 @@ class RegistrationFragment : Fragment() {
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
                     addUserInDatabase(login, auth.currentUser?.uid)
-                    findNavController().navigate(R.id.action_registrationFragment_to_mainFragment)
+                    findNavController().navigate(R.id.action_registrationFragment_to_main_navigation)
                 } else {
                     println("ne reg")
                 }

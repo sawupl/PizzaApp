@@ -14,8 +14,8 @@
             android:id="@+id/action_loginFragment_to_registrationFragment"
             app:destination="@id/registrationFragment" />
         <action
-            android:id="@+id/action_loginFragment_to_mainFragment"
-            app:destination="@id/mainFragment"
+            android:id="@+id/action_loginFragment_to_main_navigation"
+            app:destination="@id/main_navigation"
             app:popUpTo="@id/navigation" />
     </fragment>
     <fragment
@@ -24,41 +24,9 @@
         android:label="fragment_registration"
         tools:layout="@layout/fragment_registration" >
         <action
-            android:id="@+id/action_registrationFragment_to_mainFragment"
-            app:destination="@id/mainFragment"
+            android:id="@+id/action_registrationFragment_to_main_navigation"
+            app:destination="@id/main_navigation"
             app:popUpTo="@id/navigation" />
     </fragment>
-    <fragment
-        android:id="@+id/mainFragment"
-        android:name="com.example.pizzaapp.MainFragment"
-        android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
-        <action
-            android:id="@+id/action_mainFragment_to_locationFragment"
-            app:destination="@id/locationFragment" />
-        <action
-            android:id="@+id/action_mainFragment_to_basketFragment"
-            app:destination="@id/basketFragment" />
-        <action
-            android:id="@+id/action_mainFragment_to_pizzaFragment"
-            app:destination="@id/pizzaFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/locationFragment"
-        android:name="com.example.pizzaapp.LocationFragment"
-        android:label="fragment_location"
-        tools:layout="@layout/fragment_location" />
-    <fragment
-        android:id="@+id/basketFragment"
-        android:name="com.example.pizzaapp.BasketFragment"
-        android:label="fragment_basket"
-        tools:layout="@layout/fragment_basket" >
-        <action
-            android:id="@+id/action_basketFragment_to_locationFragment"
-            app:destination="@id/locationFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/pizzaFragment"
-        android:name="com.example.pizzaapp.PizzaFragment"
-        android:label="PizzaFragment" />
+    <include app:graph="@navigation/main_navigation" />
 </navigation>

@@ -34,7 +34,7 @@ class MainFragment : Fragment() {
         }
 
         binding.toBasket.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFragment_to_basketFragment)
+//            findNavController().navigate(R.id.action_mainFragment_to_basketFragment)
         }
 
         binding.findPizzaButton.setOnClickListener {
