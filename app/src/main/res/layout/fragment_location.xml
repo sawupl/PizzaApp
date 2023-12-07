@@ -6,26 +6,6 @@
     tools:context=".MainFragment"
     android:background="@color/persiclight">
 
-    <Button
-        android:id="@+id/orderPizza"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Заказать"
-        android:backgroundTint="@color/oran"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@id/apartmentText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <AutoCompleteTextView
-        android:id="@+id/streetText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Улица:"
-        android:textColor="@color/oran"
-        android:textColorHint="@color/oranp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
 
     <EditText
         android:id="@+id/editTextText"
@@ -40,7 +20,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <AutoCompleteTextView
+        android:id="@+id/streetText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Улица:"
+        android:textColor="@color/oran"
+        android:textColorHint="@color/oranp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
 
+    <EditText
+        android:id="@+id/houseText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Дом:"
+        android:textColor="@color/oran"
+        android:textColorHint="@color/oranp"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/streetText" />
     <EditText
         android:id="@+id/apartmentText"
         android:layout_width="match_parent"
@@ -55,17 +56,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/houseText" />
 
-    <EditText
-        android:id="@+id/houseText"
+    <TextView
+        android:id="@+id/fullPrice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Дом:"
+        android:textAlignment="center"
+        android:textSize="30sp"
         android:textColor="@color/oran"
-        android:textColorHint="@color/oranp"
-        android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/streetText" />
+        app:layout_constraintBottom_toBottomOf="@+id/orderPizza"
+        app:layout_constraintTop_toBottomOf="@+id/apartmentText" />
+
+    <Button
+        android:id="@+id/orderPizza"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Заказать"
+        android:backgroundTint="@color/oran"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/fullPrice"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

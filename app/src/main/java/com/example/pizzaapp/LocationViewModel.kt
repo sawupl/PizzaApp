@@ -14,10 +14,23 @@ class LocationViewModel(private val db: FirebaseFirestore, private val auth: Fir
     val id = auth.currentUser?.uid.toString()
     val addressLiveData = MutableLiveData<List<String>>()
     val streetLiveData = MutableLiveData<List<String>>()
+    val fullPriceLiveData = MutableLiveData<String>()
 
     init {
         getAddress()
         getCityStreets()
+        getFullPrice()
+    }
+
+    private fun getFullPrice() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val pizza = db.collection("users").document(id).collection("pizzas").get().await()
+            var count = 0L
+            pizza.documents.forEach {
+                count += it.get("price").toString().toLong()
+            }
+            fullPriceLiveData.postValue(count.toString())
+        }
     }
 
     fun saveToHistory() {
@@ -25,17 +38,16 @@ class LocationViewModel(private val db: FirebaseFirestore, private val auth: Fir
             val order = db.collection("users").document(id).collection("pizzas").get().addOnSuccessListener {pizzas ->
                 for (pizza in pizzas) {
                     val count = pizza.get("count") as Long
-                    val pizzaI = pizza.id
+                    val pizzaId = pizza.id
                     val price = pizza.get("price") as Long
                     val historyPizza = hashMapOf(
                         "count" to count,
                         "price" to price
                     )
-                    db.collection("users").document(id).collection("history").document(pizzaI).set(historyPizza)
+                    db.collection("users").document(id).collection("history").document(pizzaId).set(historyPizza)
 
                 }
             }.await()
-
         }
     }
 

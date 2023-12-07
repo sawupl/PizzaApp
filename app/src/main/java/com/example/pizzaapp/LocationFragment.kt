@@ -51,6 +51,10 @@ class LocationFragment : Fragment() {
             binding.apartmentText.setText(it[2])
         }
 
+        viewModel.fullPriceLiveData.observe(viewLifecycleOwner) {
+            binding.fullPrice.text = "Стоимость: $it ₽"
+        }
+
 
         binding.orderPizza.setOnClickListener {
             var canBeAdded = true

@@ -26,9 +26,12 @@ class MainActivity : AppCompatActivity() {
         ) as NavHostFragment
     navController = navHostFragment.navController
     navController.addOnDestinationChangedListener { _, destination, _ ->
-        if(destination.id == R.id.mainFragment) {
+        if(destination.id == R.id.mainFragment || destination.id == R.id.basketFragment) {
             binding.bottomNav.visibility = View.VISIBLE
             binding.bottomNav.setupWithNavController(navController)
+        }
+        else {
+            binding.bottomNav.visibility = View.GONE
         }
     }
     }
