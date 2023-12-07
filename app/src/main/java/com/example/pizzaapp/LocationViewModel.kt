@@ -22,35 +22,40 @@ class LocationViewModel(private val db: FirebaseFirestore, private val auth: Fir
 
     fun saveToHistory() {
         viewModelScope.launch(Dispatchers.IO) {
-            val order = db.collection("users").document(id).collection("pizzas").get().await()
-            order.documents.forEach { pizza ->
-                val count = pizza.get("count") as Long
-                val pizzaI = pizza.id
-                val price = pizza.get("price") as Long
-                val historyPizza = hashMapOf(
-                    "count" to count,
-                    "price" to price
-                )
-                db.collection("users").document(id).collection("history").document(pizzaI).set(historyPizza).await()
-            }
+            val order = db.collection("users").document(id).collection("pizzas").get().addOnSuccessListener {pizzas ->
+                for (pizza in pizzas) {
+                    val count = pizza.get("count") as Long
+                    val pizzaI = pizza.id
+                    val price = pizza.get("price") as Long
+                    val historyPizza = hashMapOf(
+                        "count" to count,
+                        "price" to price
+                    )
+                    db.collection("users").document(id).collection("history").document(pizzaI).set(historyPizza)
+
+                }
+            }.await()
+
         }
     }
 
     fun clearUserCurrentOrder(){
         viewModelScope.launch(Dispatchers.IO) {
-            val order = db.collection("users").document(id).collection("pizzas").get().await()
-            order.documents.forEach {
-                it.reference.delete()
-            }
+            val order = db.collection("users").document(id).collection("pizzas").get().addOnSuccessListener { documents ->
+                for (document in documents) {
+                    document.reference.delete()
+                }
+            }.await()
         }
     }
 
     fun clearHistory() {
         viewModelScope.launch(Dispatchers.IO) {
-            val history = db.collection("users").document(id).collection("history").get().await()
-            history.documents.forEach {
-                it.reference.delete()
-            }
+            val history = db.collection("users").document(id).collection("history").get().addOnSuccessListener { documents ->
+                for(document in documents){
+                    document.reference.delete()
+                }
+            }.await()
         }
     }
 
