@@ -17,7 +17,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Registration"
+            android:text="Регистрация"
             android:textColor="@color/oran"
             android:textSize="26sp"
             android:layout_alignParentTop="true"
@@ -76,7 +76,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.668" />
+        app:layout_constraintVertical_bias="0.6" />
 
     <EditText
         android:id="@+id/login"
@@ -99,22 +99,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="75dp"
-        android:text="Sign In"
+        android:text="Войти"
         android:textColor="@color/persiclight"
         android:backgroundTint="@color/oran"
         app:layout_constraintTop_toBottomOf="@id/email"
-        app:layout_constraintStart_toStartOf="@id/email"/>
+        app:layout_constraintStart_toStartOf="@id/email"
+        app:layout_constraintEnd_toEndOf="@id/email"/>
 
     <Button
         android:id="@+id/register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/oran"
-        android:text="Sign Up"
+        android:text="Зарегестрироваться"
         android:textColor="@color/persiclight"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="15dp"
         android:src="@drawable/back"
-        app:layout_constraintTop_toBottomOf="@id/email"
-        app:layout_constraintEnd_toEndOf="@id/email"/>
+        app:layout_constraintTop_toBottomOf="@id/toLogin"
+        app:layout_constraintEnd_toEndOf="@id/email"
+        app:layout_constraintStart_toStartOf="@id/email" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

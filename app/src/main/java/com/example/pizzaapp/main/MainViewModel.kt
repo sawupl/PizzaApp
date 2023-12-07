@@ -144,7 +144,7 @@ class MainViewModel(private val db: FirebaseFirestore, private val auth: Firebas
                     var ingredient = ingredientItem.data?.get("ingredient").toString()
                     if (ingredient in userIngredientList) {
                         isLikeIngredient = true
-                        ingredient = "<font color='#EE0000'>$ingredient</font>"
+                        ingredient = "<font color='#C9007A'>$ingredient</font>"
                     }
                     ingregientInString += "$ingredient, "
                 }
