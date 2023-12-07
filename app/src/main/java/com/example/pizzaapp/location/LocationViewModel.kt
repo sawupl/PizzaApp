@@ -1,4 +1,4 @@
-package com.example.pizzaapp
+package com.example.pizzaapp.location
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -112,4 +112,17 @@ class LocationViewModel(private val db: FirebaseFirestore, private val auth: Fir
             streetLiveData.postValue(streetsList)
         }
     }
+
+    fun setAddress(street:String, house:String,apartment:String){
+        viewModelScope.launch(Dispatchers.IO) {
+            db.collection("users")
+                .document(auth.currentUser?.uid.toString())
+                .update(
+                    "street", street,
+                    "house", house,
+                    "apartment", apartment
+                ).await()
+        }
+    }
+
 }

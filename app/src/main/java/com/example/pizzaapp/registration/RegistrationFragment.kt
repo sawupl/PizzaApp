@@ -1,4 +1,4 @@
-package com.example.pizzaapp
+package com.example.pizzaapp.registration
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.pizzaapp.R
 import com.example.pizzaapp.databinding.FragmentRegistrationBinding
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore

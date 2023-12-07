@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.pizzaapp.MainFragment"
+        android:name="com.example.pizzaapp.main.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/basketFragment"
-        android:name="com.example.pizzaapp.BasketFragment"
+        android:name="com.example.pizzaapp.basket.BasketFragment"
         android:label="fragment_basket"
         tools:layout="@layout/fragment_basket" >
         <action
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/pizzaFragment"
-        android:name="com.example.pizzaapp.PizzaFragment"
+        android:name="com.example.pizzaapp.pizzaIngredient.PizzaFragment"
         android:label="fragment_pizza"
         tools:layout="@layout/fragment_pizza" >
         <argument
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/locationFragment"
-        android:name="com.example.pizzaapp.LocationFragment"
+        android:name="com.example.pizzaapp.location.LocationFragment"
         android:label="LocationFragment" />
 
 </navigation>

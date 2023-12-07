@@ -1,4 +1,4 @@
-package com.example.pizzaapp
+package com.example.pizzaapp.location
 
 import android.R
 import android.os.Bundle
@@ -10,16 +10,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.pizzaapp.ViewModelFactory
 import com.example.pizzaapp.databinding.FragmentLocationBinding
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 
 
 class LocationFragment : Fragment() {
     private lateinit var binding: FragmentLocationBinding
-    private val db = Firebase.firestore
-    private val auth = Firebase.auth
     private var streets = mutableListOf<String>()
     private lateinit var viewModel: LocationViewModel
 
@@ -91,11 +87,7 @@ class LocationFragment : Fragment() {
             }
 
             if (canBeAdded){
-                db.collection("users")
-                    .document(auth.currentUser?.uid.toString())
-                    .update("street",street,
-                        "house",house,
-                        "apartment",apartment)
+                viewModel.setAddress(street,house,apartment)
                 viewModel.clearHistory()
                 viewModel.saveToHistory()
                 viewModel.clearUserCurrentOrder()

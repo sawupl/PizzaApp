@@ -1,4 +1,4 @@
-package com.example.pizzaapp
+package com.example.pizzaapp.basket
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,12 +8,13 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.pizzaapp.R
+import com.example.pizzaapp.ViewModelFactory
 import com.example.pizzaapp.databinding.FragmentBasketBinding
 
 class BasketFragment : Fragment() {
     private lateinit var binding: FragmentBasketBinding
     private lateinit var viewModel: BasketViewModel
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,16 +1,15 @@
-package com.example.pizzaapp
+package com.example.pizzaapp.main
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.text.HtmlCompat
 import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.example.pizzaapp.models.Pizza
+import com.example.pizzaapp.R
 import com.example.pizzaapp.databinding.PizzaItemBinding
 import com.squareup.picasso.Picasso
 

@@ -1,4 +1,6 @@
-package com.example.pizzaapp
+package com.example.pizzaapp.models
+
+import com.example.pizzaapp.models.Ingredient
 
 data class PizzaIngredient(
     val id: String?,

@@ -1,4 +1,4 @@
-package com.example.pizzaapp
+package com.example.pizzaapp.pizzaIngredient
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,9 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.pizzaapp.ViewModelFactory
 import com.example.pizzaapp.databinding.FragmentPizzaBinding
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 
 

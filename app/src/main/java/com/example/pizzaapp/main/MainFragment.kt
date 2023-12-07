@@ -1,4 +1,4 @@
-package com.example.pizzaapp
+package com.example.pizzaapp.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.pizzaapp.ViewModelFactory
 import com.example.pizzaapp.databinding.FragmentMainBinding
 
 class MainFragment : Fragment() {
@@ -25,7 +26,6 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding  = FragmentMainBinding.inflate(inflater, container, false)
-
         viewModel.pizzaLiveData.observe(viewLifecycleOwner){
             val adapter = PizzaAdapter(it, viewModel, requireContext())
             binding.recipeView.adapter = adapter
@@ -37,5 +37,10 @@ class MainFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getListOfPizzas()
     }
 }

@@ -1,4 +1,4 @@
-package com.example.pizzaapp
+package com.example.pizzaapp.basket
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.pizzaapp.models.Pizza
 import com.example.pizzaapp.databinding.BasketPizzaItemBinding
 import com.squareup.picasso.Picasso
 

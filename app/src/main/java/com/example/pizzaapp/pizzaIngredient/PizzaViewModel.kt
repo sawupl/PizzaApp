@@ -1,8 +1,10 @@
-package com.example.pizzaapp
+package com.example.pizzaapp.pizzaIngredient
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.pizzaapp.models.Ingredient
+import com.example.pizzaapp.models.PizzaIngredient
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers

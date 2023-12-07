@@ -1,8 +1,9 @@
-package com.example.pizzaapp
+package com.example.pizzaapp.basket
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.pizzaapp.models.Pizza
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
@@ -28,13 +29,13 @@ class BasketViewModel(private val db: FirebaseFirestore, private val auth: Fireb
                 val picture = pizzaRef.data?.get("picture").toString()
                 val price = pizzaRef.data?.get("price") as Long
                 val ingredientRef = pizzaRef.reference.collection("ingredient").get().await()
-                var ingregientInString = ""
+                var ingredientInString = ""
                 ingredientRef.documents.forEach { ingredientItem ->
                     val ingredient = ingredientItem.data?.get("ingredient").toString()
-                    ingregientInString += "$ingredient, "
+                    ingredientInString += "$ingredient, "
                 }
-                ingregientInString = ingregientInString.substring(0, ingregientInString.length - 2)
-                pizzaList.add(Pizza(id = id, name = name,price = price ,imageUrl = picture, ingredients = ingregientInString, count = count))
+                ingredientInString = ingredientInString.substring(0, ingredientInString.length - 2)
+                pizzaList.add(Pizza(id = id, name = name,price = price ,imageUrl = picture, ingredients = ingredientInString, count = count))
             }
             usersPizzaLiveData.postValue(pizzaList)
         }
