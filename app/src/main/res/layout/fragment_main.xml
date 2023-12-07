@@ -12,6 +12,8 @@
         android:layout_height="48dp"
         android:backgroundTint="@color/oran"
         android:text="Предпочтения"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
         android:textColor="@color/persiclight"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
