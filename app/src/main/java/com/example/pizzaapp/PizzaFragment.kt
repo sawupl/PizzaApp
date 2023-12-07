@@ -6,14 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.pizzaapp.databinding.FragmentPizzaBinding
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
-import kotlinx.coroutines.tasks.await
 
 
 class PizzaFragment : Fragment() {
@@ -21,8 +18,6 @@ class PizzaFragment : Fragment() {
     private var pizzaId: String? = null
     private val db = Firebase.firestore
     private lateinit var viewModel: PizzaViewModel
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,8 +32,6 @@ class PizzaFragment : Fragment() {
             binding.textView.text = name
             Picasso.get().load(picture).into(binding.imageView)
         }
-
-
 
         viewModel = ViewModelProvider(this, ViewModelFactory())[PizzaViewModel::class.java]
 

@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pizzaapp.databinding.FragmentMainBinding
 
@@ -32,10 +31,6 @@ class MainFragment : Fragment() {
             binding.recipeView.adapter = adapter
             binding.recipeView.layoutManager = LinearLayoutManager(context)
         }
-
-        //binding.toBasket.setOnClickListener {
-//            findNavController().navigate(R.id.action_mainFragment_to_basketFragment)
-        //}
 
         binding.findPizzaButton.setOnClickListener {
             viewModel.getPizzaWithLikeIngredients()

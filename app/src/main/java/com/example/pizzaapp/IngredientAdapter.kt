@@ -21,7 +21,6 @@ class IngredientAdapter(private val ingredientList: List<Ingredient>, private va
         holder.binding.apply {
             ingredientName.text = name
             if (ingredientList[position].added) {
-                println("$position added position")
                 favouriteIngredient.setColorFilter(ContextCompat.getColor(context, R.color.red))
             }
             else {
@@ -29,7 +28,6 @@ class IngredientAdapter(private val ingredientList: List<Ingredient>, private va
             }
         }
         holder.binding.favouriteIngredient.setOnClickListener{
-            println("click like")
             if (ingredientList[position].added) {
                 holder.binding.favouriteIngredient.setColorFilter(ContextCompat.getColor(context, R.color.black))
                 ingredientList[position].added = false

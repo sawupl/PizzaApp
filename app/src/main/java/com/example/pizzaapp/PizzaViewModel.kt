@@ -8,7 +8,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
-import java.util.Locale
 
 class PizzaViewModel(private val db: FirebaseFirestore, private val auth: FirebaseAuth): ViewModel(){
     val ingredientLiveData = MutableLiveData<PizzaIngredient>()

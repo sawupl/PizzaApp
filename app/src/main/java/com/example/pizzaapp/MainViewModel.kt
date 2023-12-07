@@ -51,11 +51,9 @@ class MainViewModel(private val db: FirebaseFirestore, private val auth: Firebas
                 var added = false
                 var like = false
                 if (id in userPizzaList) {
-                    println("$id added")
                     added = true
                 }
                 if (id in userPizzaLikeList) {
-                    println("$id like")
                     like = true
                 }
                 pizzaList.add(
@@ -69,9 +67,6 @@ class MainViewModel(private val db: FirebaseFirestore, private val auth: Firebas
                         like = like
                     )
                 )
-            }
-            pizzaList.forEach {
-                println(it.id + " " + it.name + " " + it.price + " " +it.imageUrl + " " + it.ingredients + " added" + it.added + " like" + it.like)
             }
             pizzaLiveData.postValue(pizzaList)
         }
@@ -151,7 +146,6 @@ class MainViewModel(private val db: FirebaseFirestore, private val auth: Firebas
                 ingredientRef.documents.forEach { ingredientItem ->
                     var ingredient = ingredientItem.data?.get("ingredient").toString()
                     if (ingredient in userIngredientList) {
-                        println(ingredient)
                         isLikeIngredient = true
                         ingredient = "<font color='#EE0000'>$ingredient</font>"
                     }
@@ -162,11 +156,9 @@ class MainViewModel(private val db: FirebaseFirestore, private val auth: Firebas
                     var added = false
                     var like = false
                     if (id in userPizzaList) {
-                        println("$id added")
                         added = true
                     }
                     if (id in userPizzaLikeList) {
-                        println("$id like")
                         like = true
                     }
                     pizzaList.add(
@@ -181,9 +173,6 @@ class MainViewModel(private val db: FirebaseFirestore, private val auth: Firebas
                         )
                     )
                 }
-            }
-            pizzaList.forEach {
-                println(it.id + " " + it.name + " " + it.price + " " + it.imageUrl + " " + it.ingredients + " added" + it.added + " like" + it.like)
             }
             pizzaLiveData.postValue(pizzaList)
             }

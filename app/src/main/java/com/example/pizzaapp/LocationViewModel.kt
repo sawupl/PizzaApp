@@ -13,9 +13,11 @@ class LocationViewModel(private val db: FirebaseFirestore, private val auth: Fir
 
     val id = auth.currentUser?.uid.toString()
     val addressLiveData = MutableLiveData<List<String>>()
+    val streetLiveData = MutableLiveData<List<String>>()
 
     init {
         getAddress()
+        getCityStreets()
     }
 
     fun saveToHistory() {
@@ -23,13 +25,13 @@ class LocationViewModel(private val db: FirebaseFirestore, private val auth: Fir
             val order = db.collection("users").document(id).collection("pizzas").get().await()
             order.documents.forEach { pizza ->
                 val count = pizza.get("count") as Long
-                val pizzaId = pizza.id
+                val pizzaI = pizza.id
                 val price = pizza.get("price") as Long
                 val historyPizza = hashMapOf(
                     "count" to count,
                     "price" to price
                 )
-                db.collection("users").document(id).collection("history").document(pizzaId).set(historyPizza).await()
+                db.collection("users").document(id).collection("history").document(pizzaI).set(historyPizza).await()
             }
         }
     }
@@ -53,13 +55,11 @@ class LocationViewModel(private val db: FirebaseFirestore, private val auth: Fir
     }
 
     fun getAddress(){
-        println("start")
         var street: String
         var house: String
         var appartment: String
         val living = mutableListOf<String>()
         viewModelScope.launch(Dispatchers.IO) {
-            println("mid")
             val history = db.collection("users").document(id).get().await()
             street = history.data?.get("street").toString()
             house = history.data?.get("house").toString()
@@ -85,16 +85,14 @@ class LocationViewModel(private val db: FirebaseFirestore, private val auth: Fir
             addressLiveData.postValue(living)
         }
     }
-    fun getCityStreets(): MutableList<String> {
+    fun getCityStreets(){
         val streetsList = mutableListOf<String>()
-
         viewModelScope.launch(Dispatchers.IO) {
             val streets = db.collection("streets").get().await()
             streets.documents.forEach {
                 streetsList.add(it.data?.get("name").toString())
             }
-
+            streetLiveData.postValue(streetsList)
         }
-        return streetsList
     }
 }

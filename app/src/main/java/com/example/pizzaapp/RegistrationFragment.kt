@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.pizzaapp.databinding.FragmentRegistrationBinding
@@ -41,7 +42,8 @@ class RegistrationFragment : Fragment() {
                     addUserInDatabase(login, auth.currentUser?.uid)
                     findNavController().navigate(R.id.action_registrationFragment_to_main_navigation)
                 } else {
-                    println("ne reg")
+                    val toast = Toast.makeText(requireContext(), "Неправильный ввод данных", Toast.LENGTH_SHORT)
+                    toast.show()
                 }
             }
     }

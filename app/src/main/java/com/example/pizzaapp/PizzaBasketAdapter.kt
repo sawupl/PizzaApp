@@ -1,12 +1,9 @@
 package com.example.pizzaapp
 
 import android.content.Context
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.TextView.OnEditorActionListener
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pizzaapp.databinding.BasketPizzaItemBinding
@@ -31,17 +28,14 @@ class PizzaBasketAdapter(private val pizzaList: ArrayList<Pizza>, private val vi
         holder.binding.apply {
             pizzaName.text = name
             pizzaIngredients.text = ingredients
-            println(price.toString() + " " + count)
             sumOfPizza.text = price.toString()
             Picasso.get().load(imageUrl).into(pizzaIcon)
             pizzaCount.setText(count.toString())
         }
 
         holder.binding.plus.setOnClickListener {
-            println("click plus")
             pizzaList[position].count = pizzaList[position].count?.plus(1)
             holder.binding.pizzaCount.setText(pizzaList[position].count.toString())
-            println(pizzaList[position].count.toString() +" "+ pizzaList[position].price!! +" "+(pizzaList[position].count?.times(pizzaList[position].price!!)).toString())
             val pizzaFullPrice = (pizzaList[position].count?.times(pizzaList[position].price!!))
             holder.binding.sumOfPizza.text = pizzaFullPrice.toString()
             viewModel.addPizza(id, pizzaFullPrice!!)
@@ -49,7 +43,6 @@ class PizzaBasketAdapter(private val pizzaList: ArrayList<Pizza>, private val vi
         }
 
         holder.binding.minus.setOnClickListener{
-            println("click minus")
             val currentCount = pizzaList[position].count
             var pizzaFullPrice:Long =0
             if (currentCount!! > 1) {

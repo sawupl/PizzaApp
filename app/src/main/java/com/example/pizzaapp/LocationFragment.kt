@@ -36,13 +36,14 @@ class LocationFragment : Fragment() {
     ): View {
         binding  = FragmentLocationBinding.inflate(inflater, container, false)
 
-        streets = viewModel.getCityStreets()
-
-        val adapter = ArrayAdapter(
-            requireContext(),
-            R.layout.simple_dropdown_item_1line, streets
-        )
-        binding.streetText.setAdapter(adapter)
+        viewModel.streetLiveData.observe(viewLifecycleOwner){
+            val adapter = ArrayAdapter(
+                requireContext(),
+                R.layout.simple_dropdown_item_1line, it
+            )
+            streets = it.toMutableList()
+            binding.streetText.setAdapter(adapter)
+        }
 
         viewModel.addressLiveData.observe(viewLifecycleOwner){
             binding.streetText.setText(it[0])

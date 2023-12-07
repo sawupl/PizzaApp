@@ -35,23 +35,19 @@ class PizzaAdapter(private val pizzaList: List<Pizza>, private val viewModel: Ma
             textView2.text = price.toString()
             Picasso.get().load(imageUrl).into(pizzaIcon)
             if (pizzaList[position].added) {
-//                println("$position added position")
                 basket.setColorFilter(ContextCompat.getColor(context, R.color.blue))
             }
             else {
                 basket.setColorFilter(ContextCompat.getColor(context, R.color.black))
             }
             if (pizzaList[position].like) {
-//                println("$position like position")
                 like.setColorFilter(ContextCompat.getColor(context, R.color.red))
             }
             else {
-//                println("here $position")
                 like.setColorFilter(ContextCompat.getColor(context, R.color.black))
             }
         }
         holder.binding.basket.setOnClickListener {
-            println("click added")
             if (pizzaList[position].added) {
                 holder.binding.basket.setColorFilter(ContextCompat.getColor(context, R.color.black))
                 pizzaList[position].added = false
@@ -65,7 +61,6 @@ class PizzaAdapter(private val pizzaList: List<Pizza>, private val viewModel: Ma
         }
 
         holder.binding.like.setOnClickListener{
-            println("click like")
             if (pizzaList[position].like) {
                 holder.binding.like.setColorFilter(ContextCompat.getColor(context, R.color.black))
                 pizzaList[position].like = false
@@ -83,8 +78,6 @@ class PizzaAdapter(private val pizzaList: List<Pizza>, private val viewModel: Ma
             findNavController(it).navigate(R.id.action_mainFragment_to_pizzaFragment, bundle)
         }
     }
-
-
 
     override fun getItemCount(): Int {
         return pizzaList.size
