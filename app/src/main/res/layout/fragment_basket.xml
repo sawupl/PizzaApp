@@ -6,14 +6,6 @@
     tools:context=".BasketFragment"
     android:background="@color/persiclight">
 
-    <ImageButton
-        android:id="@+id/findPizzaButton"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@tools:sample/avatars" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recipeView"
         android:layout_width="0dp"
@@ -21,7 +13,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/findPizzaButton" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/order"
@@ -37,10 +29,10 @@
         android:id="@+id/orderPrevious"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/oran"
         android:text="Заказ предыдущего"
         android:textColor="@color/persiclight"
-        android:backgroundTint="@color/oran"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/findPizzaButton" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

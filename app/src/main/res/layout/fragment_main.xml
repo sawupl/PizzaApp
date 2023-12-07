@@ -3,40 +3,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainFragment"
-    android:background="@color/persiclight">
-
-
-    <EditText
-        android:id="@+id/editProductText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Название продукта:"
-        android:textColor="@color/oran"
-        android:textColorHint="@color/oranp"
-        android:inputType="text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    android:background="@color/persiclight"
+    tools:context=".MainFragment">
 
     <Button
         android:id="@+id/findPizzaButton"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
+        android:backgroundTint="@color/oran"
         android:text="Предпочтения"
         android:textColor="@color/persiclight"
-        android:backgroundTint="@color/oran"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/avatars" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recipeView"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editProductText" />
+        app:layout_constraintTop_toBottomOf="@id/findPizzaButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
