@@ -21,10 +21,18 @@ class LoginFragment : Fragment() {
         binding  = FragmentLoginBinding.inflate(inflater, container, false)
 
         binding.enter.setOnClickListener {
-            signIn(
-                email = binding.email.text.toString(),
-                password = binding.password.text.toString()
-            )
+            val email = binding.email.text.toString()
+            val password = binding.password.text.toString()
+            if (email.isNotEmpty() && password.isNotEmpty()){
+                signIn(
+                    email = email,
+                    password = password
+                )
+            }
+            else{
+                val toast = Toast.makeText(requireContext(), "Заполните все поля", Toast.LENGTH_SHORT)
+                toast.show()
+            }
         }
         binding.toReg.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registrationFragment)

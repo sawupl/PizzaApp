@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pizzaapp.databinding.FragmentPizzaBinding
 import com.google.firebase.firestore.ktx.firestore
@@ -16,7 +17,6 @@ import com.squareup.picasso.Picasso
 class PizzaFragment : Fragment() {
     private lateinit var binding: FragmentPizzaBinding
     private var pizzaId: String? = null
-    private val db = Firebase.firestore
     private lateinit var viewModel: PizzaViewModel
 
     override fun onCreateView(
@@ -26,12 +26,11 @@ class PizzaFragment : Fragment() {
         binding  = FragmentPizzaBinding.inflate(inflater, container, false)
         pizzaId = arguments?.getString("pizzaId")
 
-        db.collection("pizzas").document(pizzaId.toString()).get().addOnSuccessListener {
-            val name = it.data?.get("name").toString()
-            val picture = it.data?.get("picture").toString()
-            binding.textView.text = name
-            Picasso.get().load(picture).into(binding.imageView)
+
+        binding.backToMain.setOnClickListener {
+            findNavController().popBackStack()
         }
+
 
         viewModel = ViewModelProvider(this, ViewModelFactory())[PizzaViewModel::class.java]
 
@@ -41,7 +40,8 @@ class PizzaFragment : Fragment() {
             val adapter = IngredientAdapter(it.ingredients, viewModel, requireContext())
             binding.recyclerIngredient.adapter = adapter
             binding.recyclerIngredient.layoutManager = LinearLayoutManager(context)
-
+            binding.textView.text = it.name
+            Picasso.get().load(it.imageUrl).into(binding.imageView)
         }
         return binding.root
     }

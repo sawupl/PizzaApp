@@ -23,11 +23,20 @@ class RegistrationFragment : Fragment() {
     ): View {
         binding  = FragmentRegistrationBinding.inflate(inflater, container, false)
         binding.register.setOnClickListener {
-            registration(
-                email = binding.email.text.toString(),
-                password = binding.password.text.toString(),
-                login = binding.login.text.toString()
-            )
+            val email = binding.email.text.toString()
+            val password = binding.password.text.toString()
+            val login = binding.login.text.toString()
+            if (email.isNotEmpty() && password.isNotEmpty() && login.isNotEmpty()){
+                registration(
+                    email = email,
+                    password = password,
+                    login = login
+                )
+            }
+            else{
+                val toast = Toast.makeText(requireContext(), "Заполните все поля", Toast.LENGTH_SHORT)
+                toast.show()
+            }
         }
         binding.toLogin.setOnClickListener {
             findNavController().popBackStack()

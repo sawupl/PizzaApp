@@ -1,5 +1,6 @@
 package com.example.pizzaapp
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.text.Html
@@ -32,7 +33,7 @@ class PizzaAdapter(private val pizzaList: List<Pizza>, private val viewModel: Ma
             pizzaName.text = name
             pizzaIngredients.text = ingredients
             pizzaIngredients.text = Html.fromHtml(ingredients)
-            textView2.text = price.toString()
+            textView2.text = "Цена: " + price.toString() + "₽"
             Picasso.get().load(imageUrl).into(pizzaIcon)
             if (pizzaList[position].added) {
                 basket.setColorFilter(ContextCompat.getColor(context, R.color.blue))

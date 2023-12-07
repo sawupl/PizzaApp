@@ -55,6 +55,10 @@ class LocationFragment : Fragment() {
             binding.fullPrice.text = "Стоимость: $it ₽"
         }
 
+        binding.backToBasket.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
 
         binding.orderPizza.setOnClickListener {
             var canBeAdded = true
