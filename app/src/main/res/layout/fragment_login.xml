@@ -62,27 +62,26 @@
         app:layout_constraintVertical_bias="0.025" />
 
     <Button
-        android:id="@+id/toReg"
+        android:id="@+id/enter"
         android:backgroundTint="@color/oran"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:text="Зарегестрироваться"
+        android:layout_marginTop="150dp"
+        android:text="Войти"
         android:textColor="@color/persiclight"
         app:layout_constraintStart_toStartOf="@id/email"
         app:layout_constraintTop_toBottomOf="@+id/email"
         app:layout_constraintEnd_toEndOf="@id/email"/>
 
     <Button
-        android:id="@+id/enter"
+        android:id="@+id/toReg"
         android:backgroundTint="@color/oran"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Войти"
-        android:layout_marginTop="15dp"
+        android:text="Зарегестрироваться"
+        android:layout_marginTop="25dp"
         android:textColor="@color/persiclight"
         app:layout_constraintEnd_toEndOf="@id/email"
-        app:layout_constraintTop_toBottomOf="@id/toReg"
+        app:layout_constraintTop_toBottomOf="@id/enter"
         app:layout_constraintStart_toStartOf="@id/email"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

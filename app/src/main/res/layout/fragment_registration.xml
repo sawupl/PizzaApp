@@ -95,11 +95,11 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/toLogin"
+        android:id="@+id/register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="75dp"
-        android:text="Войти"
+        android:layout_marginTop="125dp"
+        android:text="Зарегестрироваться"
         android:textColor="@color/persiclight"
         android:backgroundTint="@color/oran"
         app:layout_constraintTop_toBottomOf="@id/email"
@@ -107,15 +107,15 @@
         app:layout_constraintEnd_toEndOf="@id/email"/>
 
     <Button
-        android:id="@+id/register"
+        android:id="@+id/toLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/oran"
-        android:text="Зарегестрироваться"
+        android:text="Войти"
         android:textColor="@color/persiclight"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="35dp"
         android:src="@drawable/back"
-        app:layout_constraintTop_toBottomOf="@id/toLogin"
+        app:layout_constraintTop_toBottomOf="@id/register"
         app:layout_constraintEnd_toEndOf="@id/email"
         app:layout_constraintStart_toStartOf="@id/email" />
 
