@@ -68,6 +68,7 @@ class PizzaBasketAdapter(private val pizzaList: ArrayList<Pizza>, private val vi
                         if (count > 0) {
                             pizzaList[position].count = count
                             var pizzaFullPrice = count * pizzaList[position].price!!
+                            holder.binding.sumOfPizza.text = pizzaFullPrice.toString()
                             viewModel.updatePizzaCount(pizzaId, count, pizzaFullPrice)
                         }
                         else {
